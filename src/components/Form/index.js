@@ -4,52 +4,65 @@ import {
     Text, 
     TextInput, 
     TouchableOpacity,
-    Vibration
+    Vibration,
+    Keyboard,
+    Pressable
 } from 'react-native'
+import ListImc from '../ListImc';
 import ResultImc from '../ResultImc'
 import styles from './styles'
 
 
 export default function Form() {
 
-    const [height, setHeight] = useState(null)
-    const [weight, setWeight] = useState(null)
-    const [imc, setImc] = useState(null)
-    const [messageImc, setMessageImc] = useState("Preencha o peso e a altura")
-    const [textButton, setTextButton] = useState("Calcular IMC")
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [height, setHeight] = useState(null);
+    const [weight, setWeight] = useState(null);
+    const [imc, setImc] = useState(null);
+    const [listImc, setListImc] = useState([]);
+    const [messageImc, setMessageImc] = useState("Preencha o peso e a altura");
+    const [textButton, setTextButton] = useState("Calcular IMC");
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    function hideKeyboard() {
+        Keyboard.dismiss()
+    }
 
     function calculateImc() {
-        let newImc = (weight/(height*height))
-        setImc(newImc.toFixed(2))
+        const weightFormatted = weight.replace(',', '.');
+        const heightFormatted = height.replace(',', '.');
+        let formattedImc = (weightFormatted/(heightFormatted*heightFormatted));
+
+        setListImc([...listImc, {id: new Date().getTime(), imc: formattedImc.toFixed(2)}]);
+        setImc(formattedImc.toFixed(2));
     }
 
     function checkImc() {
         if(imc == null) {
-            setErrorMessage("campo obrigatorio")
-            Vibration.vibrate()
+            setErrorMessage("campo obrigatorio");
+            Vibration.vibrate();
         }
     }
 
     function validateImc() {
         if(weight != null && height != null) {
-            calculateImc()
-            setErrorMessage(null)
-            setHeight(null)
-            setWeight(null)
-            setMessageImc("Seu IMC e igual: ")
-            setTextButton("Calcular novamente")
+            calculateImc();
+            setErrorMessage(null);
+            setHeight(null);
+            setWeight(null);
+            setMessageImc("Seu IMC e igual: ");
+            setTextButton("Calcular novamente");
             return
         }
-        checkImc()
-        setImc(null)
-        setTextButton("Calcular")
-        setMessageImc("Preencha o peso e a altura")
+        checkImc();
+        setImc(null);
+        setTextButton("Calcular");
+        setMessageImc("Preencha o peso e a altura");
         
     }
 
     return (
-        <View style={styles.formContainer}>
+        <>
+        <Pressable onPress={hideKeyboard} style={styles.formContainer}>
             <View style={styles.form}>
                 <Text style={styles.formLabel}>Altura</Text>
                 <Text style={styles.errorMessage}>{errorMessage}</Text>
@@ -75,6 +88,8 @@ export default function Form() {
                 <Text style={styles.textButtonCalculator}> {textButton} </Text> 
             </TouchableOpacity>
             <ResultImc result={imc} message={messageImc} />
-        </View>
+            <ListImc items={listImc} />
+        </Pressable>
+        </>
     );   
 }

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: 30
     },
     form: {
         width: '100%',
