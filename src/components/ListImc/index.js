@@ -8,11 +8,15 @@ export default function ListImc({ items }) {
         <FlatList
             style={styles.listImc} 
             data={items}
-            renderItem={({ id, imc }) => (
-                <View key={id}>
-                    <Text style={styles.listImcLabel}>IMC foi de:</Text>
-                    <Text style={styles.listImcValue}>{imc}</Text>
+            ListHeaderComponent={() => (
+                <View style={styles.listImcHeader}>
+                    <Text style={styles.listImcHeaderText}>Hist&oacute;rico de IMC</Text>
                 </View>
+            )}
+            renderItem={({ item }) => (
+                    <Text style={styles.listImcLabel}>IMC foi de: 
+                        <Text style={styles.listImcValue}>{item.imc}</Text>
+                    </Text>
                 )
             }
             keyExtractor={(item) => item.id}

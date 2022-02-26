@@ -88,7 +88,7 @@ export default function Form() {
                 <Text style={styles.textButtonCalculator}> {textButton} </Text> 
             </TouchableOpacity>
             <ResultImc result={imc} message={messageImc} />
-            <ListImc items={listImc} />
+            {listImc.length > 0 && <ListImc items={listImc} /> }
         </Pressable>
         </>
     );   
