@@ -2,12 +2,10 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     resultImc: {
-        flex: 1,
-        marginTop: 15,
-        paddingTop: 60,
-        borderRadius: 50,
+        width: '100%',
         alignItems: 'center',
-        width: '100%'
+        justifyContent: 'center',
+        height: '40%',
     },
     numberImc: {
         fontSize: 48,
@@ -16,6 +14,7 @@ const styles = StyleSheet.create({
     },
     information: {
         fontSize: 18,
+        marginRight: 10,
         color: '#ff0043',
         fontWeight: 'bold'
     }

@@ -24,7 +24,7 @@ export default function Form() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     function hideKeyboard() {
-        Keyboard.dismiss()
+        Keyboard.dismiss();
     }
 
     function calculateImc() {
@@ -51,19 +51,18 @@ export default function Form() {
             setWeight(null);
             setMessageImc("Seu IMC e igual: ");
             setTextButton("Calcular novamente");
-            return
+        } else {
+            checkImc();
+            setImc(null);
+            setTextButton("Calcular");
+            setMessageImc("Preencha o peso e a altura");
         }
-        checkImc();
-        setImc(null);
-        setTextButton("Calcular");
-        setMessageImc("Preencha o peso e a altura");
-        
     }
 
     return (
-        <>
-        <Pressable onPress={hideKeyboard} style={styles.formContainer}>
-            <View style={styles.form}>
+        <View style={styles.formContainer}>
+            {imc === null ? (
+            <Pressable onPress={hideKeyboard} style={styles.form}>
                 <Text style={styles.formLabel}>Altura</Text>
                 <Text style={styles.errorMessage}>{errorMessage}</Text>
                 <TextInput
@@ -83,13 +82,19 @@ export default function Form() {
                     value={weight ?? ""}
                     onChangeText={setWeight}
                 />
-            </View>
             <TouchableOpacity style={styles.buttonCalculator} onPress={validateImc}> 
                 <Text style={styles.textButtonCalculator}> {textButton} </Text> 
             </TouchableOpacity>
+            </Pressable>
+        ) : (
+            <>
             <ResultImc result={imc} message={messageImc} />
-            {listImc.length > 0 && <ListImc items={listImc} /> }
-        </Pressable>
-        </>
+            <TouchableOpacity style={styles.buttonCalculator} onPress={validateImc}> 
+                <Text style={styles.textButtonCalculator}> {textButton} </Text> 
+            </TouchableOpacity>
+            <ListImc items={listImc} />
+            </>
+        )}
+        </View>
     );   
 }

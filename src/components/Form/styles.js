@@ -2,13 +2,12 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     formContainer: {
-        width: '100%',
-        height: '100%',
-        bottom: 0,
+        flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
+        alignItems: 'center',
+        paddingTop: 10
     },
     form: {
         width: '100%',
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
         paddingTop: 14,
         paddingBottom: 14,
         marginLeft: 12,
-        marginTop: 30
+        marginTop: 30,
     },
     textButtonCalculator: {
         fontSize: 20,

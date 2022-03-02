@@ -5,8 +5,8 @@ import styles from './styles'
 
 export default function ShareButton({ result }) {
 
-    function onShare() {
-        Share.share({
+    const onShare = async () => {
+        await Share.share({
             message: 'Meu IMC hoje é: ' + result
         })
     }

@@ -3,9 +3,9 @@ import { View, Text, FlatList } from 'react-native'
 import styles from './styles'
 
 export default function ListImc({ items }) {
-    console.log(items)
     return (
         <FlatList
+            showsVerticalScrollIndicator={false}
             style={styles.listImc} 
             data={items}
             ListHeaderComponent={() => (
@@ -14,9 +14,9 @@ export default function ListImc({ items }) {
                 </View>
             )}
             renderItem={({ item }) => (
-                    <Text style={styles.listImcLabel}>IMC foi de: 
-                        <Text style={styles.listImcValue}>{item.imc}</Text>
-                    </Text>
+                <Text style={styles.listImcLabel}>IMC foi de: &nbsp;
+                    <Text style={styles.listImcValue}>{item.imc}</Text>
+                </Text>
                 )
             }
             keyExtractor={(item) => item.id}
